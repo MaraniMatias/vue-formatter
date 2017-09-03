@@ -30,13 +30,17 @@ function getCode(code, block, expReg) {
       (lang ? lang.length : 0),
       parseInt(index.end) + (lang ? -index.end.length : +5)
     );
-  } else {
+  } else if (block === "style") {
     text = text.substring(
       parseInt(index.start) + block.length + 6 + index.start.length,
       parseInt(index.end)
     );
+  } else {
+    text = text.substring(
+      parseInt(index.start) + block.length + 6 + index.start.length,
+      parseInt(index.end) + block.length
+    );
   }
-
   return { text, lang };
 }
 
@@ -53,6 +57,6 @@ module.exports = function (text) {
     return;
   }
   return build(getCode(text, 'template', templateReg), 'template', 'html') + '\n' +
-    build(getCode(text, 'script', scriptReg), 'script', 'js') + '\n' +
-    build(getCode(text, 'style', styleReg), 'style', 'css');
+   build(getCode(text, 'script', scriptReg), 'script', 'js')+ '\n' +
+   build(getCode(text, 'style', styleReg), 'style', 'css');
 };
