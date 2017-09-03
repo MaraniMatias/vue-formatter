@@ -5,11 +5,12 @@ var code = '';
 process.title = 'Vue Fomatter';
 process.stdin.setEncoding('utf8');
 
+//TODO validar que sea vue
 process.stdin.on('readable', () => {
   const chunk = process.stdin.read();
   if (chunk !== null) {
     //process.stdout.write(`data: ${chunk}`);
-    var code = fomatter(chunk);
+    code = fomatter(chunk);
   }
 });
 
