@@ -24,16 +24,17 @@ function getCode(code, block, expReg) {
   let match = text.match(/(\d+)-{3}\w*-{3}(\w*)?/ig);
   let lang = match[0].match(/\d*-{3}\w*-{3}(\w+)?/)[1];
   let index = { start: match[0].match(/\d*/)[0], end: match[1].match(/\d*/)[0] };
-  if(block==="template"){
-  text = text.substring(
-    parseInt(index.start) + 7 + block.length + (lang ? lang.length : 0),
-    parseInt(index.end) + (lang ? -index.end.length : +5)
-  );
-  }else{
-  text = text.substring(
-    parseInt(index.start) + block.length + 12,
-    parseInt(index.end)
-  );
+  if (block === "template") {
+    text = text.substring(
+      parseInt(index.start) + 6 + index.start.length + block.length +
+      (lang ? lang.length : 0),
+      parseInt(index.end) + (lang ? -index.end.length : +5)
+    );
+  } else {
+    text = text.substring(
+      parseInt(index.start) + block.length + 6 + index.start.length,
+      parseInt(index.end)
+    );
   }
 
   return { text, lang };
@@ -53,5 +54,5 @@ module.exports = function (text) {
   }
   return build(getCode(text, 'template', templateReg), 'template', 'html') + '\n' +
     build(getCode(text, 'script', scriptReg), 'script', 'js') + '\n' +
-    build( getCode(text, 'style', styleReg), 'style', 'css');
+    build(getCode(text, 'style', styleReg), 'style', 'css');
 };
