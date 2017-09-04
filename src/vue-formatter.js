@@ -17,6 +17,9 @@ const beautify = require('js-beautify');
 function getCode(code, block, expReg) {
   let split = code.split(expReg, 4);
   let match = code.match(expReg);
+  if (!match) {
+    return null;
+  }
   if (!/src/.test(match)) {
     if (block === "template") {
       if (!split[1]) {
@@ -39,8 +42,9 @@ module.exports = function (text) {
   if (!text) {
     return;
   } else {
-    return getCode(text, 'template', templateReg) + '\n\n' +
-      getCode(text, 'script', scriptReg) + '\n\n' +
-      getCode(text, 'style', styleReg);
+    let html = getCode(text, 'template', templateReg) ;
+    let script = getCode(text, 'script', scriptReg);
+    let style = getCode(text, 'style', styleReg);
+    return (html?html+ '\n':'' )+(script?'\n'+script+ '\n':'')+(style?'\n'+style+'\n':'');
   }
 };
