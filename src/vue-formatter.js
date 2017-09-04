@@ -23,7 +23,7 @@ function getCode(code, block, expReg) {
         return match[0] + '\n' + beautify.html(split[2], config) + '\n' + match[1];
       }
     } else if (block === "style") {
-      if (split[1] === undefined || split[1] === 'less') {
+      if (split[1] === undefined || split[1] === 'scss' || split[1] === 'less') {
         return match[0] + '\n' + beautify.css(split[2], config) + '\n' + match[1];
       }
     } else {

@@ -1,8 +1,8 @@
 {
   "name": "vue-formatter",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "vue-beautifier for node",
-  "main": "src/vue-fomatter.js",
+  "main": "src/vue-formatter.js",
   "bin": {
     "vue-formatter": "src/cli.js"
   },
