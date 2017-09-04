@@ -1,6 +1,6 @@
 {
   "name": "vue-fomatter",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "vue-beautifier for node",
   "main": "src/vue-fomatter.js",
   "bin": {

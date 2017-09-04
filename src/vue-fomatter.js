@@ -1,7 +1,11 @@
+//<script src="./my-component.js"></script>
+//<style src="./my-component.css"></style>
+
 'use strict';
-const templateReg = /<(?:\/)?template[\s\S]*?(?:lang="(.*)")?>/ig;
-const scriptReg = /<(?:\/)?script[\s\S]*?(?:lang="(.*)")?>/ig;
-const styleReg = /<(?:\/)?style[\s\S]*?(?:lang="(.*)")?>/ig;
+const templateReg = /<(?:\/)?template[\s\S]*?(?:lang="\s*(.*)\s*")?\s*>/ig;
+const scriptReg = /<(?:\/)?script[\s\S]*?(?:lang="\s*(.*)\s*")?\s*>/ig;
+const styleReg = /<(?:\/)?style[\s\S]*?(?:lang="\s*(.*)\s*")?\s*(?:scoped)?\s*>/ig;
+
 const config = {
   "indent_size": 2,
   "indent_level": 6,
@@ -11,52 +15,36 @@ const config = {
   "max_preserve_newlines": 3
 };
 
-const beautify = {
-  js: require('js-beautify'),
-  css: require('js-beautify').css,
-  html: require('js-beautify').html
-};
+const beautify = require('js-beautify');
 
 function getCode(code, block, expReg) {
-  let text = code.replace(expReg, function (match, $, end) {
-    return end + "---" + block + "---" + ($ || '');
-  });
-  let match = text.match(/(\d+)-{3}\w*-{3}(\w*)?/ig);
-  let lang = match[0].match(/\d*-{3}\w*-{3}(\w+)?/)[1];
-  let index = { start: match[0].match(/\d*/)[0], end: match[1].match(/\d*/)[0] };
+  let split = code.split(expReg, 4);
+  let match = code.match(expReg);
   if (block === "template") {
-    text = text.substring(
-      parseInt(index.start) + 6 + index.start.length + block.length +
-      (lang ? lang.length : 0),
-      parseInt(index.end) + (lang ? -index.end.length : +5)
-    );
+    if (split[1]) {
+      return match[0] + split[2] + match[1];
+    } else {
+      return match[0] + '\n' + beautify.html(split[2], config) + '\n' + match[1];
+    }
   } else if (block === "style") {
-    text = text.substring(
-      parseInt(index.start) + block.length + 6 + index.start.length,
-      parseInt(index.end)
-    );
+    if (split[1] === undefined || split[1] === 'less') {
+      return match[0] + '\n' + beautify.css(split[2], config) + '\n' + match[1];
+    } else {
+      return match[0] + split[2] + match[1];
+    }
   } else {
-    text = text.substring(
-      parseInt(index.start) + block.length + 6 + index.start.length,
-      parseInt(index.end) + block.length
-    );
-  }
-  return { text, lang };
-}
-
-function build(obj, block, type) {
-  if (!obj.lang) {
-    return '<' + block + '>\n' + beautify[type](obj.text, config) + '\n</' + block + '>\n';
-  } else {
-    return '<' + block + ' lang="' + obj.lang + '">' + obj.text + '</' + block + '>\n';
+    if (split[1] === undefined || split[1] === 'TypeScript') {
+      return match[0] + '\n' + beautify(split[2], config) + '\n' + match[1];
+    } else {
+      return match[0] + split[2] + match[1];
+    }
   }
 }
 
 module.exports = function (text) {
-  if (!text) {
-    return;
+  if (!text) { return; } else {
+    return getCode(text, 'template', templateReg) + '\n\n' +
+      getCode(text, 'script', scriptReg) + '\n\n' +
+      getCode(text, 'style', styleReg);
   }
-  return build(getCode(text, 'template', templateReg), 'template', 'html') + '\n' +
-   build(getCode(text, 'script', scriptReg), 'script', 'js')+ '\n' +
-   build(getCode(text, 'style', styleReg), 'style', 'css');
 };
