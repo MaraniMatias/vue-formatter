@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 'use strict';
-const fomatter = require('./vue-formatter.js');
+const formatter = require('./vue-formatter.js');
 var code = '';
-process.title = 'Vue Fomatter';
+process.title = 'Vue Formatter';
 process.stdin.setEncoding('utf8');
 
 //TODO validar que sea vue
@@ -10,7 +10,7 @@ process.stdin.on('readable', () => {
   const chunk = process.stdin.read();
   if (chunk !== null) {
     //process.stdout.write(`data: ${chunk}`);
-    code = fomatter(chunk);
+    code = formatter(chunk);
   }
 });
 
