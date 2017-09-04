@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 'use strict';
-const fomatter = require('./vue-fomatter.js');
+const fomatter = require('./vue-formatter.js');
 var code = '';
 process.title = 'Vue Fomatter';
 process.stdin.setEncoding('utf8');
