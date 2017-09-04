@@ -1,6 +1,3 @@
-//<script src="./my-component.js"></script>
-//<style src="./my-component.css"></style>
-
 'use strict';
 const templateReg = /<(?:\/)?template[\s\S]*?(?:lang="\s*(.*)\s*")?\s*>/ig;
 const scriptReg = /<(?:\/)?script[\s\S]*?(?:lang="\s*(.*)\s*")?\s*>/ig;
@@ -20,29 +17,28 @@ const beautify = require('js-beautify');
 function getCode(code, block, expReg) {
   let split = code.split(expReg, 4);
   let match = code.match(expReg);
-  if (block === "template") {
-    if (split[1]) {
-      return match[0] + split[2] + match[1];
+  if (!/src/.test(match)) {
+    if (block === "template") {
+      if (!split[1]) {
+        return match[0] + '\n' + beautify.html(split[2], config) + '\n' + match[1];
+      }
+    } else if (block === "style") {
+      if (split[1] === undefined || split[1] === 'less') {
+        return match[0] + '\n' + beautify.css(split[2], config) + '\n' + match[1];
+      }
     } else {
-      return match[0] + '\n' + beautify.html(split[2], config) + '\n' + match[1];
-    }
-  } else if (block === "style") {
-    if (split[1] === undefined || split[1] === 'less') {
-      return match[0] + '\n' + beautify.css(split[2], config) + '\n' + match[1];
-    } else {
-      return match[0] + split[2] + match[1];
-    }
-  } else {
-    if (split[1] === undefined || split[1] === 'TypeScript') {
-      return match[0] + '\n' + beautify(split[2], config) + '\n' + match[1];
-    } else {
-      return match[0] + split[2] + match[1];
+      if (split[1] === undefined || split[1] === 'TypeScript') {
+        return match[0] + '\n' + beautify(split[2], config) + '\n' + match[1];
+      }
     }
   }
+  return match[0] + split[2] + match[1];
 }
 
 module.exports = function (text) {
-  if (!text) { return; } else {
+  if (!text) {
+    return;
+  } else {
     return getCode(text, 'template', templateReg) + '\n\n' +
       getCode(text, 'script', scriptReg) + '\n\n' +
       getCode(text, 'style', styleReg);
