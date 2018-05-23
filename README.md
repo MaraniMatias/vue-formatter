@@ -9,8 +9,14 @@ npm install -g vue-formatter
 
 ### Cli
 ```shell
-cat my-compnet.vue | vue-formatter > my-compnet.vue
+cat my-compnet.vue | vue-formatter | sponge my-compnet.vue
 ```
+or alternatively
+```shell
+cat my-compnet.vue | vue-formatter > my-compnet.vue.tmp && mv my-compnet.vue.tmp my-compnet.vue
+```
+
+
 
 ### JavaScript
 ```shell
