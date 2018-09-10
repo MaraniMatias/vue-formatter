@@ -5,12 +5,14 @@ const scriptReg = /<(?:\/)?script[\s\S]*?(?:lang="\s*(.*)\s*")?\s*>/ig;
 const styleReg = /<(?:\/)?style[\s\S]*?(?:lang="\s*(.*)\s*")?\s*(?:scoped)?\s*>/ig;
 
 const config = {
-  "indent_size": 2,
-  "indent_level": 6,
   "brace_style": "collapse,preserve-inline",
+  "indent_level": 6,
+  "indent_size": 2,
   "jslint_happy": true,
   "keep_array_indentation": true,
-  "max_preserve_newlines": 3
+  "max_preserve_newlines": 3,
+  "space_after_anon_function": true,
+  "space-in-paren": true
 };
 
 const beautify = require('js-beautify');

@@ -1,6 +1,6 @@
 {
   "name": "vue-formatter",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "vue-beautifier for node",
   "main": "src/vue-formatter.js",
   "bin": {
@@ -32,6 +32,6 @@
     "mocha": "^3.5.0"
   },
   "dependencies": {
-    "js-beautify": "^1.7.5"
+    "js-beautify": "^1.8.4"
   }
 }
