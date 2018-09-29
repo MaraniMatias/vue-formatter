@@ -6,7 +6,7 @@ const styleReg = /<(?:\/)?style[\s\S]*?(?:lang="\s*(.*)\s*")?\s*(?:scoped)?\s*>/
 
 const config = {
   "indent_size": 2,
-  "indent_level": 6,
+  "indent_level": 0,
   "brace_style": "collapse,preserve-inline",
   "jslint_happy": true,
   "keep_array_indentation": true,
