@@ -32,6 +32,6 @@
     "mocha": "^3.5.0"
   },
   "dependencies": {
-    "js-beautify": "^1.7.5"
+    "js-beautify": "^1.8.4"
   }
 }
