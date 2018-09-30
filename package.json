@@ -9,14 +9,8 @@
   "scripts": {
     "test": "node ./test/test.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/MaraniMatias/vue-fomatter.git"
-  },
-  "author": {
-    "name": "Marani Matias Ezequiel",
-    "email": "maranimatias@gmail.com"
-  },
+  "repository": "git+https://github.com/MaraniMatias/vue-fomatter.git",
+  "author": "Marani Matias Ezequiel <maranimatias@gmail.com>",
   "keywords": [
     "beautify",
     "vue",
@@ -33,5 +27,6 @@
   },
   "dependencies": {
     "js-beautify": "^1.8.4"
-  }
+  },
+  "private": false
 }
