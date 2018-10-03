@@ -12,7 +12,7 @@ const config = {
   "keep_array_indentation": true,
   "max_preserve_newlines": 3,
   "space_after_anon_function": true,
-  "space-in-paren": true
+  "space-in-paren": false
 };
 
 const beautify = require('js-beautify');
