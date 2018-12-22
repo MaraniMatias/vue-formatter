@@ -20,7 +20,7 @@ cat my-compnet.vue | vue-formatter > my-compnet.vue.tmp && mv my-compnet.vue.tmp
 
 ### JavaScript
 ```shell
-npm install js-beautify
+npm install vue-formatter
 ```
 
 ```javascript
