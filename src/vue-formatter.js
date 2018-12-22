@@ -1,4 +1,6 @@
 'use strict';
+const beautify = require('js-beautify');
+
 // const templateReg = /<(?:\/)?template[\s\S]*?(?:lang="\s*(.*)\s*")?\s*>/ig;
 const templateReg = /(<template\s*?(?:lang=["']\s*pug\s*['"])?\s*>)|(<\/template>)(?=[\s]*<script>)/ig;
 const scriptReg = /<(?:\/)?script[\s\S]*?(?:lang="\s*(.*)\s*")?\s*>/ig;
@@ -6,7 +8,7 @@ const styleReg = /<(?:\/)?style[\s\S]*?(?:lang="\s*(.*)\s*")?\s*(?:scoped)?\s*>/
 
 const config = {
   "brace_style": "collapse,preserve-inline",
-  "indent_level": 0,
+  "indent_level": 1,
   "indent_size": 2,
   "jslint_happy": true,
   "keep_array_indentation": true,
@@ -15,7 +17,6 @@ const config = {
   "space-in-paren": false
 };
 
-const beautify = require('js-beautify');
 
 function getCode(code, block, expReg) {
   let split;
