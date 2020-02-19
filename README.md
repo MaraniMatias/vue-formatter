@@ -67,3 +67,13 @@ autocmd FileType vue noremap <buffer> <c-f> :%!vue-formatter<CR>
   "operator_position": "before-newline"
 }
 ```
+
+----
+
+_Donate_
+
+**Bitcoin** 3GonBQ8XibkL9d5SDu5j7MccavV1VKXXet
+
+**Ethereum** 0xf3ca8c0630ceee045f715b5c596e70887a903d38
+
+**Monero** 86sR1arBcYW918Bf8NhN3bCynwGfbzMna48KfsffHi8L1UEKqwu6FVRR3canexk3jfByB99gWB5bSFxvAt2ZneigLmSNxJB
